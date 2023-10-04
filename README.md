@@ -10,11 +10,13 @@ Once you run the script, it will prompt you for the NFL game week number. The ma
 
 ## A Couple of Quick Notes:
 
-1. **Plex Library Sorting**: To ensure SportScanner detects your files, make sure to follow the specific folder structure (`/NFL/2023/FILES...`). The SportScanner GitHub repository has comprehensive guidelines on this.
-   
-2. **SportScanner Setup**: The initial setup for SportScanner involves manual installation of some scanners. The onus is on you to follow the setup guidelines.
+1. **Set The Variables in nfl.py**: Make sure to set your search folder and your renamed file folder at the beginning of the script. There are examples for you to see. 
 
-3. **Dependencies**: This script relies on the Python package `pandas`. To get up and running, place all the script files in one directory and execute `pip install pandas`.
+2. **Plex Library Sorting**: To ensure SportScanner detects your files, make sure to follow the specific folder structure (`/NFL/2023/FILES...`). The SportScanner GitHub repository has comprehensive guidelines on this.
+   
+3. **SportScanner Setup**: The initial setup for SportScanner involves manual installation of some scanners. The onus is on you to follow the setup guidelines.
+
+4. **Dependencies**: This script relies on the Python package `pandas`. To get up and running, place all the script files in one directory and execute `pip install pandas`.
 
 ## Need Help?
 
