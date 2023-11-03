@@ -1,4 +1,3 @@
-
 import re
 import os
 import pandas as pd
@@ -6,17 +5,14 @@ from collections import defaultdict
 from team_mapping import get_team_mapping
 
 #Here are the folders for you to set. folder_to_search is your misnamed files while move_to_folder is where you want your renamed files to go. 
-#########################################
 
 # Folder to search for files to rename
-# for example: folder_to_search = '/volume2/Synology2/Media/TV/Test/' or 'C:\filestorename\nfl\'
-folder_to_search = 'FOLDERTOSEARCH'
+folder_to_search = '/volume2/Synology2/Media/TV/Test/'
 
 # Folder to move the renamed files to
-# for example: move_to_folder = '/volume2/Synology2/Media/TV/NFL/2023/' or 'C:\plexmedia\TV\NFL\2023'
-move_to_folder = 'RENAMEDFILEFOLDER'
+move_to_folder = '/volume2/Synology2/Media/TV/NFL/2023/'
 
-#########################################
+
 # Load the DataFrame from the CSV file
 df = pd.read_csv('NFLScheduleFinal.csv')
 
@@ -34,7 +30,8 @@ def rename_nfl_files(week_number):
     # Prepare regex patterns
     pattern1 = re.compile(r'[-_]*([A-Za-z0-9]{2,15})[@]([A-Za-z0-9]{2,15})[-_]*')
     pattern2 = re.compile(r'NFL\.\d{4}-\d{2}-\d{2}\.(.*?)\.vs\.(.*?)\.[mkv|ts|mp4]')
-#    pattern3 = re.compile(r'([A-Za-z0-9]{2,15})[@]([A-Za-z0-9]{2,15})')
+    pattern3 = re.compile(r'(.*?) at (.*?) \d{2}\.\d{2}\.\d{2}')
+    pattern4 = re.compile(r'\d{4}\.\d{2}\.\d{2}\.([a-zA-Z0-9]+)\.vs\.([a-zA-Z0-9]+)')
 
     # Prepare dictionary to hold original and new filenames
     rename_dict = defaultdict(str)
@@ -56,8 +53,12 @@ def rename_nfl_files(week_number):
                 match = pattern2.search(file_name)
                 
             # If still no match, try the third pattern
-#            if not match:
-#                match = pattern3.search(file_name)
+            if not match:
+                match = pattern3.search(file_name)
+
+            # If still no match, try the third pattern
+            if not match:
+                match = pattern4.search(file_name)
            
             if match:
                 away_match_str, home_match_str = match.groups()
@@ -89,8 +90,10 @@ def rename_nfl_files(week_number):
                 match = pattern1.search(file_name)
                 if not match:
                     match = pattern2.search(file_name)
-#                if not match:
-#                    match = pattern3.search(file_name)
+                if not match:
+                    match = pattern3.search(file_name)
+                if not match:
+                    match = pattern4.search(file_name)                
 
                 if match:
                     away_match_str, home_match_str = match.groups()
